@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<data>
+    <client>
+        <name>Samantha Rodriguez</name>
+        <type>client</type>
+        <login_id>85219764</login_id>
+        <password>3768</password>
+    </client>
+    <client>
+        <name>Jacob Patel</name>
+        <type>client</type>
+        <login_id>31985672</login_id>
+        <password>9125</password>
+    </client>
+    <client>
+        <name>Emily Nguyen</name>
+        <type>client</type>
+        <login_id>49758321</login_id>
+        <password>5487</password>
+    </client>
+    <client>
+        <type>admin</type>
+        <login_id>62147895</login_id>
+        <password>2351</password>
+    </client>
+</data>

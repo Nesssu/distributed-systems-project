@@ -1,12 +1,13 @@
 import socket
 from getpass import getpass
+import json
 
 HOST = "127.0.0.1"
 PORT = 55555
 
 def menu():
     print("\n*** MENU ***")
-    print("\n1) Show balance")
+    print("1) Show balance")
     print("2) Deposit money")
     print("3) Withdraw money")
     print("4) Transfer money")
@@ -31,9 +32,13 @@ def run_client():
             choice = menu()
             match choice:
                 case "1":
-                    print("\n*** BALANCE ***\n")
+                    print("\n*** BALANCE ***")
+                    client.send('1'.encode())
+                    json_account_data = client.recv(1024).decode()
+                    account_data = json.loads(json_account_data)
+                    print(account_data)
                 case "2":
-                    print("\n*** DEPOSIT ***\n")
+                    print("\n*** DEPOSIT ***")
                     try:
                         amount = float(input("Amount: "))
                         # Send the amount to the transfer microservice
@@ -41,7 +46,7 @@ def run_client():
                     except Exception:
                         print("Error occured while getting the amount!")
                 case "3":
-                    print("\n*** WITHDRAW ***\n")
+                    print("\n*** WITHDRAW ***")
                     try:
                         amount = float(input("Amount: "))
                         # Send the amount to the transfer microservice
@@ -49,7 +54,7 @@ def run_client():
                     except Exception:
                         print("Error occured while getting the amount!")
                 case "4":
-                    print("\n*** TRANSFER ***\n")
+                    print("\n*** TRANSFER ***")
                     try:
                         destination = input("Destination ID: ")
                         amount = float(input("Amount: "))
@@ -58,7 +63,7 @@ def run_client():
                     except Exception:
                         print("Error occured while trying to transfer money!")
                 case "5":
-                    print("\n*** PAYMENT ***\n")
+                    print("\n*** PAYMENT ***")
                     try:
                         destination = input("Destination Name: ")
                         amount = float(input("Amount: "))
