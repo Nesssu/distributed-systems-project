@@ -6,18 +6,23 @@ PORT = 55555
 
 def handle_client(conn, addr):
     print(f"Client connected: {addr}")
+
+    logged_in = False
     
     data = conn.recv(1024).decode()
     while True:
         if not data:
-            print("Client disconnected: {addr}")
+            print(f"Client disconnected: {addr}")
             break
-            
-        id = data.split(";")[0]
-        pwd = data.split(";")[1]
-        print("ID: " + id)
-        print("Password: " + pwd)
-        conn.send("proceed".encode())
+        
+        if logged_in:
+            pass
+        else:
+            # Send the log in data to the microservice
+
+            # If the log in data is valid, log in
+            logged_in = True
+            conn.send("proceed".encode())
 
     conn.close()
     return None
