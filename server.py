@@ -33,7 +33,11 @@ def handle_client(conn, addr):
                     response = transaction.deposit(amount, destination, current_client["id"])
                     conn.send(response.encode())
                 case "3":
-                    pass
+                    info = conn.recv(1024).decode()
+                    amount = float(info.split(";")[0])
+                    bank_account = info.split(";")[1]
+                    response = transaction.withdraw(amount, bank_account, current_client["id"])
+                    conn.send(response.encode())
                 case "4":
                     pass
                 case "5":

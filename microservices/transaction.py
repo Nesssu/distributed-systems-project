@@ -18,6 +18,21 @@ def deposit(amount, destination, client):
     return ("\nCouldn't deposit money to that account!")
 
 # Withdraws money from the users account. Only possible if the balance is big enough.
-def withdraw(amount, account):
-    
-    return None
+def withdraw(amount, account, client):
+    # Like with the deposit, first we check that the account is the clients own account.
+    account_tree = ET.parse("account_db.xml")
+    account_root = account_tree.getroot()
+    for bank_account in account_root:
+        if bank_account.find("serial_nr").text == account:
+            if bank_account.find("client").text == client:
+                # Then we make sure that the balance is big enough
+                balance = float(bank_account.find("balance").text)
+                if balance >= amount:
+                    balance -= amount
+                    bank_account.find("balance").text = str(balance)
+                    account_tree.write("account_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
+                    return (f"\n{amount} € withdrawn from the account {account}.")
+                else:
+                    return ("Insufficient balance!")
+
+    return ("Couldn't withdraw from that account!")

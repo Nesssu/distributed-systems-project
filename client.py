@@ -42,7 +42,7 @@ def run_client():
                         print("TYPE: " + account['type'])
                         print("BALANCE: " + account['balance'] + " €")
                 case "2":
-                    print("\n*** DEPOSIT ***")
+                    print("\n*** DEPOSIT *** \n")
                     try:
                         client.send("2".encode())
                         amount = float(input("Amount: "))
@@ -54,11 +54,15 @@ def run_client():
                     except Exception:
                         print("Error occured while getting the amount!")
                 case "3":
-                    print("\n*** WITHDRAW ***")
+                    print("\n*** WITHDRAW ***\n")
                     try:
+                        client.send("3".encode())
                         amount = float(input("Amount: "))
-                        # Send the amount to the transfer microservice
-                        print(f"{amount} € withdrawn from your account.")
+                        account = input("Account (Serial number): ")
+                        info = str(amount) + ";" + account
+                        client.send(info.encode())
+                        response = client.recv(1024).decode()
+                        print(response)
                     except Exception:
                         print("Error occured while getting the amount!")
                 case "4":
