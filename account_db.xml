@@ -5,34 +5,34 @@
         <balance>27.50</balance>
         <account_id>98235671</account_id>
         <client>85219764</client>
-        <type>checking</checking>
+        <type>checking</type>
     </account>
     <account>
         <serial_nr>8930274615289013</serial_nr>
         <balance>93.99</balance>
-        <client>31985672<client>
         <account_id>41328907</account_id>
-        <type>checking</checking>
+        <client>31985672</client>
+        <type>checking</type>
     </account>
     <account>
         <serial_nr>6421983057190382</serial_nr>
         <balance>10.00</balance>
         <account_id>72549683</account_id>
-        <client>31985672<client>
-        <type>checking</checking>
+        <client>31985672</client>
+        <type>checking</type>
     </account>
     <account>
         <serial_nr>2790651348910765</serial_nr>
         <balance>62.75</balance>
         <account_id>13784529</account_id>
-        <client>49758321<client>
-        <type>checking</checking>
+        <client>49758321</client>
+        <type>checking</type>
     </account>
     <account>
         <serial_nr>4589123760159247</serial_nr>
         <balance>5130.25</balance>
         <account_id>56891723</account_id>
-        <company>Company X</company>
-        <type>payment</checking>
+        <client>49758321</client>
+        <type>payment</type>
     </account>
 </data>

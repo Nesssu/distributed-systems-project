@@ -12,8 +12,8 @@ def login(id, pwd):
             password = client.find('password').text
             if password == pwd:
                 result['success'] = True
-                type = client.find('type').text
-                result['type'] = type
+                client_type = client.find('type').text
+                result['type'] = client_type
                 result['id'] = client.find('login_id').text
                 return result
             
@@ -23,15 +23,13 @@ def login(id, pwd):
 def get_balance(id):
     result = []
     for account in account_root:
-        account_id = account.find('account_id').text
-        if (account_id == id):
+        client = account.find('client').text
+        if (client == id):
             dic = {
                 'serial_nr': account.find('serial_nr').text,
                 'balance': account.find('balance').text,
                 'type': account.find('type').text
             }
-            if (account.find('company')):
-                dic['company'] = account.find('company').text
             result.append(dic)
     return result
 

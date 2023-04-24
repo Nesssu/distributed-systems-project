@@ -3,7 +3,7 @@ from getpass import getpass
 import json
 
 HOST = "127.0.0.1"
-PORT = 55555
+PORT = 1234
 
 def menu():
     print("\n*** MENU ***")
@@ -36,7 +36,10 @@ def run_client():
                     client.send('1'.encode())
                     json_account_data = client.recv(1024).decode()
                     account_data = json.loads(json_account_data)
-                    print(account_data)
+                    for account in account_data:
+                        print("\nSERIAL NUMBER: " + account['serial_nr'])
+                        print("TYPE: " + account['type'])
+                        print("BALANCE: " + account['balance'] + " €")
                 case "2":
                     print("\n*** DEPOSIT ***")
                     try:

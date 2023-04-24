@@ -4,7 +4,7 @@ import microservices.account as account
 import json
 
 HOST = "127.0.0.1"
-PORT = 55555
+PORT = 1234
 
 def handle_client(conn, addr):
     print(f"Client connected: {addr}")
@@ -19,9 +19,8 @@ def handle_client(conn, addr):
             break
         data = data.decode()
         if logged_in:
-            match data['choice']:
+            match data:
                 case "1":
-                    print(current_client)
                     account_data = account.get_balance(current_client['id'])
                     json_account_data = json.dumps(account_data)
                     conn.sendall(json_account_data.encode())
@@ -30,6 +29,7 @@ def handle_client(conn, addr):
             login_pwd = data.split(";")[1]
             current_client = account.login(login_id, login_pwd)
             if (current_client['success']):
+                logged_in = True
                 conn.send('proceed'.encode())
 
     conn.close()
