@@ -1,12 +1,10 @@
 import xml.etree.ElementTree as ET
-client_tree = ET.parse("client_db.xml")
-client_root = client_tree.getroot()
-account_tree = ET.parse("account_db.xml")
-account_root = account_tree.getroot()
 
 # Logs the client into the server. Returns a dictionary back to the server that has
 # the name, id and the type of the client.
 def login(id, pwd):
+    client_tree = ET.parse("client_db.xml")
+    client_root = client_tree.getroot()
     result = {}
     for client in client_root:
         login_id = client.find('login_id').text
@@ -25,6 +23,8 @@ def login(id, pwd):
 
 # Shows a quick info about the client. Name, all accounts and the type of the account.
 def get_account_info(id):
+    account_tree = ET.parse("account_db.xml")
+    account_root = account_tree.getroot()
     result = []
     for account in account_root:
         if account.find("client").text == id:
@@ -34,6 +34,8 @@ def get_account_info(id):
 
 # Shows the balance and type of all the bank accounts the client has.
 def get_balance(id):
+    account_tree = ET.parse("account_db.xml")
+    account_root = account_tree.getroot()
     result = []
     for account in account_root:
         client = account.find('client').text

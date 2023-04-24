@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <data>
     <account>
         <serial_nr>7198341592807346</serial_nr>
@@ -9,14 +9,14 @@
     </account>
     <account>
         <serial_nr>8930274615289013</serial_nr>
-        <balance>93.99</balance>
+        <balance>100.0</balance>
         <account_id>41328907</account_id>
         <client>31985672</client>
         <type>checking</type>
     </account>
     <account>
         <serial_nr>6421983057190382</serial_nr>
-        <balance>10.00</balance>
+        <balance>52.5</balance>
         <account_id>72549683</account_id>
         <client>31985672</client>
         <type>checking</type>

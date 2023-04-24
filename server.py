@@ -1,6 +1,8 @@
 import socket
 import threading
 import microservices.account as account
+import microservices.transaction as transaction
+import microservices.payment as payment
 import json
 
 HOST = "127.0.0.1"
@@ -25,7 +27,11 @@ def handle_client(conn, addr):
                     json_account_data = json.dumps(account_data)
                     conn.sendall(json_account_data.encode())
                 case "2":
-                    pass
+                    info = conn.recv(1024).decode()
+                    amount = float(info.split(";")[0])
+                    destination = info.split(";")[1]
+                    response = transaction.deposit(amount, destination, current_client["id"])
+                    conn.send(response.encode())
                 case "3":
                     pass
                 case "4":
