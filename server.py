@@ -69,7 +69,9 @@ def handle_client(conn, addr):
             current_client = account.login(login_id, login_pwd)
             if (current_client['success']):
                 logged_in = True
-                conn.send('proceed'.encode())
+            
+            json_current_client = json.dumps(current_client)
+            conn.send(json_current_client.encode())
 
     conn.close()
     return None
