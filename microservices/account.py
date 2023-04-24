@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from random import randint
 
 # Logs the client into the server. Returns a dictionary back to the server that has
 # the name, id and the type of the client.
@@ -19,6 +20,20 @@ def login(id, pwd):
                 return result
             
     result['success'] = False
+    return result
+
+def get_all_clients():
+    client_tree = ET.parse("client_db.xml")
+    client_root = client_tree.getroot()
+    result = []
+    for client in client_root:
+        if client.find("type").text != "admin":
+            dic = {
+                "name": client.find("name").text,
+                "id": client.find("login_id").text
+            }
+            result.append(dic)
+    
     return result
 
 # Shows a quick info about the client. Name, all accounts and the type of the account.
@@ -59,9 +74,24 @@ def delete_account():
     return None
 
 # Allows admins to add new clients to the bank.
-def create_client():
+def create_client(name, password):
+    client_tree = ET.parse("client_db.xml")
+    client_root = client_tree.getroot()
     
-    return None
+    client_id = randint(10000000, 99999999)
+    client_element = ET.Element('client')
+    name_element = ET.SubElement(client_element, 'name')
+    name_element.text = name
+    type_element = ET.SubElement(client_element, 'type')
+    type_element.text = "client"
+    id_element = ET.SubElement(client_element, 'login_id')
+    id_element.text = str(client_id)
+    password_element = ET.SubElement(client_element, 'password')
+    password_element = password
+    client_root.append(client_element)
+    client_tree.write("client_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
+
+    return f"New client added with the ID {client_id}."
 
 # Allows the admins to delete clients from the bank.
 def delete_client():

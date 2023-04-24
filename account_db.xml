@@ -1,38 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <data>
-    <account>
-        <serial_nr>7198 3415 9280 7346</serial_nr>
-        <balance>27.50</balance>
-        <account_id>98235671</account_id>
-        <client>85219764</client>
-        <type>checking</type>
-    </account>
-    <account>
-        <serial_nr>8930 2746 1528 9013</serial_nr>
-        <balance>120.0</balance>
-        <account_id>41328907</account_id>
-        <client>31985672</client>
-        <type>checking</type>
-    </account>
-    <account>
-        <serial_nr>6421 9830 5719 0382</serial_nr>
-        <balance>10.01</balance>
-        <account_id>72549683</account_id>
-        <client>31985672</client>
-        <type>checking</type>
-    </account>
-    <account>
-        <serial_nr>2790 6513 4891 0765</serial_nr>
-        <balance>62.75</balance>
-        <account_id>13784529</account_id>
-        <client>49758321</client>
-        <type>checking</type>
-    </account>
-    <account>
-        <serial_nr>4589 1237 6015 9247</serial_nr>
-        <balance>5140.24</balance>
-        <account_id>56891723</account_id>
-        <client>49758321</client>
-        <type>payment</type>
-    </account>
-</data>
+    <client>
+        <name>Samantha Rodriguez</name>
+        <type>client</type>
+        <login_id>85219764</login_id>
+        <password>3768</password>
+    </client>
+    <client>
+        <name>Jacob Patel</name>
+        <type>client</type>
+        <login_id>31985672</login_id>
+        <password>9125</password>
+    </client>
+    <client>
+        <name>Emily Nguyen</name>
+        <type>client</type>
+        <login_id>49758321</login_id>
+        <password>5487</password>
+    </client>
+    <client>
+        <name>Nick Baldwin</name>
+        <type>admin</type>
+        <login_id>62147895</login_id>
+        <password>2351</password>
+    </client>
+<client><name>Nestori Kangashaka</name><type>client</type><login_id>

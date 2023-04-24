@@ -131,8 +131,8 @@ def admin_front_end(client):
                 json_clients = client.recv(1024).decode()
                 clients = json.loads(json_clients)
                 for item in clients:
-                    print(item["name"])
-                    print(item["id"] + "\n")
+                    print("NAME: " + item["name"])
+                    print("ID: " + item["id"] + "\n")
 
             case "2":
                 print("\n*** ADD NEW CLIENT ***\n")
@@ -141,7 +141,7 @@ def admin_front_end(client):
                 password = getpass("Password (4 digits): ")
                 info = name + ";" + password
                 client.send(info.encode())
-                response = client.recv(1024).encode()
+                response = client.recv(1024).decode()
                 print(response)
 
             case "3":

@@ -8,6 +8,75 @@ import json
 HOST = "127.0.0.1"
 PORT = 1234
 
+def client_options(conn, current_client, data):
+    match data:
+        case "1":
+            account_data = account.get_balance(current_client['id'])
+            json_account_data = json.dumps(account_data)
+            conn.sendall(json_account_data.encode())
+        case "2":
+            info = conn.recv(1024).decode()
+            amount = float(info.split(";")[0])
+            destination = info.split(";")[1]
+            response = transaction.deposit(amount, destination, current_client["id"])
+            conn.send(response.encode())
+        case "3":
+            info = conn.recv(1024).decode()
+            amount = float(info.split(";")[0])
+            bank_account = info.split(";")[1]
+            response = transaction.withdraw(amount, bank_account, current_client["id"])
+            conn.send(response.encode())
+        case "4":
+            info = conn.recv(1024).decode()
+            info_split = info.split(";")
+            amount = float(info_split[0])
+            bank_account = info_split[1]
+            destination = info_split[2]
+            response = transaction.transfer(amount, destination, bank_account, current_client["id"])
+            conn.send(response.encode())
+        case "5":
+            info = conn.recv(1024).decode()
+            info_split = info.split(";")
+            amount = float(info_split[0])
+            bank_account = info_split[1]
+            destination = info_split[2]
+            response = payment.pay(amount, destination, bank_account, current_client["id"])
+            conn.send(response.encode())
+        case "6":
+            accounts = account.get_account_info(current_client["id"])
+            result = {
+                "name": current_client["name"],
+                "type": current_client["type"],
+                "accounts": accounts
+            }
+            json_result = json.dumps(result)
+            conn.sendall(json_result.encode())
+    return None
+
+def admin_options(conn, current_client, data):
+    match data:
+        case "1":
+            clients = account.get_all_clients()
+            json_clients = json.dumps(clients)
+            conn.sendall(json_clients.encode())
+
+        case "2":
+            info = conn.recv(1024).decode()
+            info_split = info.split(";")
+            name = info_split[0]
+            password = info_split[1]
+            response = account.create_client(name, password)
+            conn.send(response.encode())
+
+        case "3":
+            pass
+        case "4":
+            pass
+        case "5":
+            pass
+
+    return None
+
 def handle_client(conn, addr):
     print(f"Client connected: {addr}")
 
@@ -21,48 +90,10 @@ def handle_client(conn, addr):
             break
         data = data.decode()
         if logged_in:
-            match data:
-                case "1":
-                    account_data = account.get_balance(current_client['id'])
-                    json_account_data = json.dumps(account_data)
-                    conn.sendall(json_account_data.encode())
-                case "2":
-                    info = conn.recv(1024).decode()
-                    amount = float(info.split(";")[0])
-                    destination = info.split(";")[1]
-                    response = transaction.deposit(amount, destination, current_client["id"])
-                    conn.send(response.encode())
-                case "3":
-                    info = conn.recv(1024).decode()
-                    amount = float(info.split(";")[0])
-                    bank_account = info.split(";")[1]
-                    response = transaction.withdraw(amount, bank_account, current_client["id"])
-                    conn.send(response.encode())
-                case "4":
-                    info = conn.recv(1024).decode()
-                    info_split = info.split(";")
-                    amount = float(info_split[0])
-                    bank_account = info_split[1]
-                    destination = info_split[2]
-                    response = transaction.transfer(amount, destination, bank_account, current_client["id"])
-                    conn.send(response.encode())
-                case "5":
-                    info = conn.recv(1024).decode()
-                    info_split = info.split(";")
-                    amount = float(info_split[0])
-                    bank_account = info_split[1]
-                    destination = info_split[2]
-                    response = payment.pay(amount, destination, bank_account, current_client["id"])
-                    conn.send(response.encode())
-                case "6":
-                    accounts = account.get_account_info(current_client["id"])
-                    result = {
-                        "name": current_client["name"],
-                        "type": current_client["type"],
-                        "accounts": accounts
-                    }
-                    json_result = json.dumps(result)
-                    conn.sendall(json_result.encode())
+            if current_client["type"] == "client":
+                client_options(conn, current_client, data)
+            else:
+                admin_options(conn, current_client, data)
         else:
             login_id = data.split(";")[0]
             login_pwd = data.split(";")[1]
