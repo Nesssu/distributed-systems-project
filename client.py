@@ -68,18 +68,27 @@ def run_client():
                 case "4":
                     print("\n*** TRANSFER ***")
                     try:
-                        destination = input("Destination ID: ")
+                        client.send("4".encode())
                         amount = float(input("Amount: "))
-                        # Send the destination and amount to the transfer microservice
-                        print(f"{amount} € transferred to account {destination}.")
+                        account = input("Account (Serial number): ")
+                        destination = input("Destination (Serial number): ")
+                        info = str(amount) + ";" + account + ";" + destination
+                        client.send(info.encode())
+                        response = client.recv(1024).decode()
+                        print(response)
                     except Exception:
                         print("Error occured while trying to transfer money!")
                 case "5":
                     print("\n*** PAYMENT ***")
                     try:
-                        destination = input("Destination Name: ")
+                        client.send("5".encode())
                         amount = float(input("Amount: "))
-                        # Send the destination and amount to the payment microservice
+                        account = input("Account (Serial number): ")
+                        destination = input("Destination (Serial number): ")
+                        info = str(amount) + ";" + account + ";" + destination
+                        client.send(info.encode())
+                        response = client.recv(1024).decode()
+                        print(response)
                     except Exception:
                         print("Error occured while making a payment!")
                 case "6":

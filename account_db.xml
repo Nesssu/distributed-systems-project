@@ -9,14 +9,14 @@
     </account>
     <account>
         <serial_nr>8930 2746 1528 9013</serial_nr>
-        <balance>100.0</balance>
+        <balance>120.0</balance>
         <account_id>41328907</account_id>
         <client>31985672</client>
         <type>checking</type>
     </account>
     <account>
         <serial_nr>6421 9830 5719 0382</serial_nr>
-        <balance>40.0</balance>
+        <balance>10.01</balance>
         <account_id>72549683</account_id>
         <client>31985672</client>
         <type>checking</type>
@@ -30,7 +30,7 @@
     </account>
     <account>
         <serial_nr>4589 1237 6015 9247</serial_nr>
-        <balance>5130.25</balance>
+        <balance>5140.24</balance>
         <account_id>56891723</account_id>
         <client>49758321</client>
         <type>payment</type>

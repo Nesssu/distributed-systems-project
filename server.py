@@ -39,9 +39,21 @@ def handle_client(conn, addr):
                     response = transaction.withdraw(amount, bank_account, current_client["id"])
                     conn.send(response.encode())
                 case "4":
-                    pass
+                    info = conn.recv(1024).decode()
+                    info_split = info.split(";")
+                    amount = float(info_split[0])
+                    bank_account = info_split[1]
+                    destination = info_split[2]
+                    response = transaction.transfer(amount, destination, bank_account, current_client["id"])
+                    conn.send(response.encode())
                 case "5":
-                    pass
+                    info = conn.recv(1024).decode()
+                    info_split = info.split(";")
+                    amount = float(info_split[0])
+                    bank_account = info_split[1]
+                    destination = info_split[2]
+                    response = payment.pay(amount, destination, bank_account, current_client["id"])
+                    conn.send(response.encode())
                 case "6":
                     accounts = account.get_account_info(current_client["id"])
                     result = {
