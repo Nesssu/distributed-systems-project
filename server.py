@@ -24,6 +24,23 @@ def handle_client(conn, addr):
                     account_data = account.get_balance(current_client['id'])
                     json_account_data = json.dumps(account_data)
                     conn.sendall(json_account_data.encode())
+                case "2":
+                    pass
+                case "3":
+                    pass
+                case "4":
+                    pass
+                case "5":
+                    pass
+                case "6":
+                    accounts = account.get_account_info(current_client["id"])
+                    result = {
+                        "name": current_client["name"],
+                        "type": current_client["type"],
+                        "accounts": accounts
+                    }
+                    json_result = json.dumps(result)
+                    conn.sendall(json_result.encode())
         else:
             login_id = data.split(";")[0]
             login_pwd = data.split(";")[1]

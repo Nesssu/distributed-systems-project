@@ -12,6 +12,7 @@ def menu():
     print("3) Withdraw money")
     print("4) Transfer money")
     print("5) Make a payment")
+    print("6) About the account")
     print("0) Log out")
     choice = input("\nYour choice: ")
     return choice
@@ -73,6 +74,19 @@ def run_client():
                         # Send the destination and amount to the payment microservice
                     except Exception:
                         print("Error occured while making a payment!")
+                case "6":
+                    print("\n*** ABOUT ***")
+                    client.send('6'.encode())
+                    json_client_data = client.recv(1024).decode()
+                    client_data = json.loads(json_client_data)
+                    print("NAME: " + client_data["name"])
+                    print("TYPE: " + client_data["type"])
+                    if (client_data["accounts"] == []):
+                        print("ACCOUNTS: No accounts yet")
+                    else:
+                        print("ACCOUNTS:")
+                        for account in client_data["accounts"]:
+                            print("SERIAL NUMBER: " + account)
                 case "0":
                     break
                 case _:
