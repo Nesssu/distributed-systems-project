@@ -1,18 +1,16 @@
 import xml.etree.ElementTree as ET
 from random import randint
 
-# Logs the client into the server. Returns a dictionary back to the server that has
-# the name, id and the type of the client.
-def login(id, pwd):
+def login(login_id, password):
     client_tree = ET.parse("client_db.xml")
     client_root = client_tree.getroot()
     current_client = {}
     for client in client_root:
-        login_id = client.find('login_id').text
-        if login_id == id:
-            password = client.find('password').text
-            if password == pwd:
-                # When the ID and password are correct, the user data is added to the dictionary.
+        # First, check that the login ID given is found in the database.
+        if client.find('login_id').text == login_id:
+            # Then, check that, that clients password matches with the given password.
+            if client.find('password').text == password:
+                # Now the user data is added to the dictionary.
                 current_client['success'] = True
                 client_type = client.find('type').text
                 current_client['type'] = client_type
@@ -25,7 +23,6 @@ def login(id, pwd):
     current_client['success'] = False
     return current_client
 
-# Returns the all the customers the bank has to the server
 def get_all_clients():
     client_tree = ET.parse("client_db.xml")
     client_root = client_tree.getroot()
@@ -37,9 +34,9 @@ def get_all_clients():
         if client.find("type").text != "admin":
             # Retrieve all the accounts the client has
             accounts = []
-            for account in account_root:
-                if account.find("client").text == client.find("login_id").text:
-                    accounts.append("ACCOUNT ID: " + account.find("account_id").text)
+            for bank_account in account_root:
+                if bank_account.find("client").text == client.find("login_id").text:
+                    accounts.append("ACCOUNT ID: " + bank_account.find("account_id").text)
             # Creates a dictionary that has the ID and the name of the client
             dic = {
                 "name": client.find("name").text,
@@ -51,37 +48,36 @@ def get_all_clients():
     
     return clients
 
-# Get all the accounts that a certain client has in the bank
 def get_account_info(id):
     account_tree = ET.parse("account_db.xml")
     account_root = account_tree.getroot()
     accounts = []
-    for account in account_root:
-        if account.find("client").text == id:
-            accounts.append(f'({account.find("type").text}) SERIAL NUMBER: {account.find("serial_nr").text}')
+    for bank_account in account_root:
+        # Get all the bank accounts that belongs to specific client.
+        if bank_account.find("client").text == id:
+            # Format them and then add them to the list.
+            accounts.append(f'({bank_account.find("type").text}) SERIAL NUMBER: {bank_account.find("serial_nr").text}')
         
     return accounts
 
-# Shows the balance and type of all the bank accounts the client has.
 def get_balance(id):
     account_tree = ET.parse("account_db.xml")
     account_root = account_tree.getroot()
     accounts = []
-    for account in account_root:
-        client = account.find('client').text
-        if (client == id):
+    for bank_account in account_root:
+        # Find all the accounts that belong to the client.
+        if bank_account.find('client').text == id:
             # Creating a dictionary that has all the info needed
             dic = {
-                'serial_nr': account.find('serial_nr').text,
-                'balance': account.find('balance').text,
-                'type': account.find('type').text
+                'serial_nr': bank_account.find('serial_nr').text,
+                'balance': bank_account.find('balance').text,
+                'type': bank_account.find('type').text
             }
             # Then adding the dictionary to the end of the list
             accounts.append(dic)
         
     return accounts
 
-# Allows the admins to create new bank accounts for the clients.
 def create_account(client_id, account_type):
     account_tree = ET.parse("account_db.xml")
     account_root = account_tree.getroot()
@@ -116,22 +112,22 @@ def create_account(client_id, account_type):
         
     return "\nError while adding the account"
 
-# Allows the admins to delete existing accounts for the clients.
 def delete_account(account_id):
     account_tree = ET.parse("account_db.xml")
     account_root = account_tree.getroot()
-    for account in account_root:
-        if account.find("account_id").text == account_id:
-            account_root.remove(account)
+    for bank_account in account_root:
+        # Find the bank account to be deleted.
+        if bank_account.find("account_id").text == account_id:
+            # Remove the account from the database.
+            account_root.remove(bank_account)
     
     account_tree.write("account_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
     return f"\nAccount '{account_id}' deleted succesfully."
 
-# Allows admins to add new clients to the bank.
 def create_client(name, password):
     client_tree = ET.parse("client_db.xml")
     client_root = client_tree.getroot()
-    
+    # Generate the ID for the client.
     client_id = randint(10000000, 99999999)
     client_element = ET.Element('client')
     name_element = ET.SubElement(client_element, 'name')
@@ -147,7 +143,6 @@ def create_client(name, password):
 
     return f"\nNew client added with the ID {client_id}."
 
-# Allows the admins to delete clients from the bank.
 def delete_client(client_id):
     client_tree = ET.parse("client_db.xml")
     client_root = client_tree.getroot()
