@@ -29,6 +29,7 @@ def admin_menu():
     return choice
 
 def client_front_end(client):
+    # This is the front end for the customers of the bank
     print("\n*** WELCOME TO ONLINE BANK ***")
     while True:
         choice = client_menu()
@@ -121,6 +122,7 @@ def client_front_end(client):
     return None
 
 def admin_front_end(client):
+    # This is the front end for the bank employees
     print("\n*** ADMIN PAGE OF ONLINE BANK ***")
     while True:
         choice = admin_menu()

@@ -53,8 +53,8 @@ def transfer(amount, destination, account, client):
                 # Check that the balance of the bank account is big enough.
                 if balance >= amount:
                     for destination_account in account_root:
-                        # Find the bank account where the money is supposed to be sent.
-                        if destination_account.find("serial_nr").text == destination:
+                        # Find the bank account where the money is supposed to be sent and check that the account isn't a payment account.
+                        if destination_account.find("serial_nr").text == destination and destination_account.find("type") != "payment":
                             # Add the amount to the balance of the destination account
                             destination_balance = float(destination_account.find("balance").text)
                             destination_balance += amount
