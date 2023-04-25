@@ -109,7 +109,7 @@ def client_front_end(client):
                 else:
                     print("ACCOUNTS:")
                     for account in client_data["accounts"]:
-                        print("SERIAL NUMBER: " + account)
+                        print(account)
 
             case "0":
                 break
@@ -191,7 +191,6 @@ def run_client():
     client.send(login_data.encode())
     json_user = client.recv(1024).decode()
     user = json.loads(json_user)
-    print(user)
     if user["success"]:
         if user["type"] == "admin":
             admin_front_end(client)

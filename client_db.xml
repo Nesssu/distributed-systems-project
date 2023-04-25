@@ -24,4 +24,10 @@
         <login_id>62147895</login_id>
         <password>2351</password>
     </client>
-<client><name>Nestori Kangashaka</name><type>client</type><login_id>34397801</login_id><password /></client></data>
+    <client>
+        <name>Nestori Kangashaka</name>
+        <type>client</type>
+        <login_id>34397801</login_id>
+        <password>7823</password>
+    </client>
+</data>
