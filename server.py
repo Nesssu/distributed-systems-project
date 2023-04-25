@@ -53,7 +53,7 @@ def client_options(conn, current_client, data):
             conn.sendall(json_result.encode())
     return None
 
-def admin_options(conn, current_client, data):
+def admin_options(conn, data):
     match data:
         case "1":
             clients = account.get_all_clients()
@@ -69,11 +69,22 @@ def admin_options(conn, current_client, data):
             conn.send(response.encode())
 
         case "3":
-            pass
+            client_id = conn.recv(1024).decode()
+            response = account.delete_client(client_id)
+            conn.send(response.encode())
+
         case "4":
-            pass
+            info = conn.recv(1024).decode()
+            info_split = info.split(";")
+            client_id = info_split[0]
+            account_type = info_split[1]
+            response = account.create_account(client_id, account_type)
+            conn.send(response.encode())
+
         case "5":
-            pass
+            account_id = conn.recv(1024).decode()
+            response = account.delete_account(account_id)
+            conn.send(response.encode())
 
     return None
 
@@ -93,7 +104,7 @@ def handle_client(conn, addr):
             if current_client["type"] == "client":
                 client_options(conn, current_client, data)
             else:
-                admin_options(conn, current_client, data)
+                admin_options(conn, data)
         else:
             login_id = data.split(";")[0]
             login_pwd = data.split(";")[1]

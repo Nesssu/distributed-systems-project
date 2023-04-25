@@ -132,7 +132,11 @@ def admin_front_end(client):
                 clients = json.loads(json_clients)
                 for item in clients:
                     print("NAME: " + item["name"])
-                    print("ID: " + item["id"] + "\n")
+                    print("ID: " + item["id"])
+                    if item["accounts"] != []:
+                        for account in item["accounts"]:
+                            print(account)
+                    print()
 
             case "2":
                 print("\n*** ADD NEW CLIENT ***\n")
@@ -155,7 +159,7 @@ def admin_front_end(client):
             case "4":
                 print("\n*** ADD NEW BANK ACCOUNT ***\n")
                 client.send("4".encode())
-                client_id = input("Cient ID: ")
+                client_id = input("Client ID: ")
                 account_type = input("Account type: (checking/payment): ")
                 info = client_id + ";" + account_type
                 client.send(info.encode())
