@@ -57,8 +57,8 @@ def transfer(amount, destination, account, client):
                             balance -= amount
                             bank_account.find("balance").text = str(balance)
                             account_tree.write("account_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
-                            return f"{amount} € transferred from your account {account} to the account {destination}."
+                            return f"\n{amount} € transferred from your account '{account}' to the account '{destination}'."
                 else:
-                    return "Insufficient balance!"
+                    return "\nInsufficient balance!"
                         
-    return "Couldn't transfer the money!"
+    return "\nCouldn't transfer the money!"

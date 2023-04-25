@@ -16,8 +16,8 @@ def pay(amount, destination, account, client):
                             balance -= amount
                             bank_account.find("balance").text = str(balance)
                             account_tree.write("account_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
-                            return f"Payment made to account '{destination}'."
+                            return f"\nPayment made to account '{destination}'."
                 else:
-                    return "Insufficient balance!"
+                    return "\nInsufficient balance!"
 
-    return "Coulnd't make the payment to that account!"
+    return "\nCoulnd't make the payment to that account!"

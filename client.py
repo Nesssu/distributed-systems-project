@@ -29,7 +29,7 @@ def admin_menu():
     return choice
 
 def client_front_end(client):
-    print("\n*** CLIENT PAGE ***\n")
+    print("\n*** WELCOME TO ONLINE BANK ***")
     while True:
         choice = client_menu()
         match choice:
@@ -70,7 +70,7 @@ def client_front_end(client):
                     print("Error occured while getting the amount!")
 
             case "4":
-                print("\n*** TRANSFER ***")
+                print("\n*** TRANSFER ***\n")
                 try:
                     client.send("4".encode())
                     amount = float(input("Amount: "))
@@ -84,7 +84,7 @@ def client_front_end(client):
                     print("Error occured while trying to transfer money!")
 
             case "5":
-                print("\n*** PAYMENT ***")
+                print("\n*** PAYMENT ***\n")
                 try:
                     client.send("5".encode())
                     amount = float(input("Amount: "))
@@ -98,7 +98,7 @@ def client_front_end(client):
                     print("Error occured while making a payment!")
 
             case "6":
-                print("\n*** ABOUT ***")
+                print("\n*** ABOUT ***\n")
                 client.send('6'.encode())
                 json_client_data = client.recv(1024).decode()
                 client_data = json.loads(json_client_data)
@@ -121,22 +121,21 @@ def client_front_end(client):
     return None
 
 def admin_front_end(client):
-    print("\n*** ADMIN PAGE ***\n")
+    print("\n*** ADMIN PAGE OF ONLINE BANK ***")
     while True:
         choice = admin_menu()
         match choice:
             case "1":
-                print("\n*** ALL CLIENTS ***\n")
+                print("\n*** ALL CLIENTS ***")
                 client.send("1".encode())
                 json_clients = client.recv(1024).decode()
                 clients = json.loads(json_clients)
                 for item in clients:
-                    print("NAME: " + item["name"])
+                    print("\nNAME: " + item["name"])
                     print("ID: " + item["id"])
                     if item["accounts"] != []:
                         for account in item["accounts"]:
                             print(account)
-                    print()
 
             case "2":
                 print("\n*** ADD NEW CLIENT ***\n")
@@ -187,7 +186,6 @@ def run_client():
     client = socket.socket()
     client.connect((HOST, PORT))
 
-    print("\n*** WELCOME TO ONLINE BANK ***")
     print("\nLogin to Continue")
     id = input("ID: ")
     password = getpass()

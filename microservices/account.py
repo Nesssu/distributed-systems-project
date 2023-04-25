@@ -112,7 +112,7 @@ def create_account(client_id, account_type):
             balance_element.text = str(0.0)
             account_root.append(account_element)
             account_tree.write("account_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
-            return f"\nAccount: '{serial_nr}' added for the client '{client_id}'."
+            return f"\nAccount '{account_id}' added for the client '{client_id}'."
         
     return "\nError while adding the account"
 
@@ -125,7 +125,7 @@ def delete_account(account_id):
             account_root.remove(account)
     
     account_tree.write("account_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
-    return f"\nAccount: {account_id} deleted succesfully."
+    return f"\nAccount '{account_id}' deleted succesfully."
 
 # Allows admins to add new clients to the bank.
 def create_client(name, password):
@@ -145,7 +145,7 @@ def create_client(name, password):
     client_root.append(client_element)
     client_tree.write("client_db.xml", xml_declaration=True, method='xml', encoding='UTF-8')
 
-    return f"New client added with the ID {client_id}."
+    return f"\nNew client added with the ID {client_id}."
 
 # Allows the admins to delete clients from the bank.
 def delete_client(client_id):
