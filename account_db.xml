@@ -5,20 +5,20 @@
         <type>checking</type>
         <account_id>C87102369</account_id>
         <client>85219764</client>
-        <balance>10211.01</balance>
+        <balance>10246.01</balance>
     </account>
     <account>
         <serial_nr>6924 0817 3456 8203</serial_nr>
         <type>payment</type>
         <account_id>P56381942</account_id>
         <client>31985672</client>
-        <balance>407.99</balance>
+        <balance>427.97</balance>
     </account>
     <account>
         <serial_nr>9045 8123 6790 1236</serial_nr>
         <type>checking</type>
         <account_id>C92673548</account_id>
         <client>49758321</client>
-        <balance>152.23</balance>
+        <balance>107.25000000000001</balance>
     </account>
     </data>

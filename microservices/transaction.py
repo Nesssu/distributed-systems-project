@@ -5,8 +5,8 @@ def deposit(amount, destination, current_client):
     account_tree = ET.parse("account_db.xml")
     account_root = account_tree.getroot()
     for bank_account in account_root:
-        # First, find the bank account where the money is deposited.
-        if bank_account.find("serial_nr").text == destination:
+        # First, find the bank account where the money is deposited and check that it is a checking account.
+        if bank_account.find("serial_nr").text == destination  and bank_account.find("type").text == "checking":
             # Then, make sure that the account belongs to the current client.
             if bank_account.find("client").text == current_client:
                 # Now we can deposit the money to the account
@@ -23,8 +23,8 @@ def withdraw(amount, account, current_client):
     account_tree = ET.parse("account_db.xml")
     account_root = account_tree.getroot()
     for bank_account in account_root:
-        # First, find the bank account.
-        if bank_account.find("serial_nr").text == account:
+        # First, find the bank account and check that it is a checking account.
+        if bank_account.find("serial_nr").text == account and bank_account.find("type").text == "checking":
             # Then, check that the bank account belongs to the current client.
             if bank_account.find("client").text == current_client:
                 # Then we make sure that the balance is big enough.

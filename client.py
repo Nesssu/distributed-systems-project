@@ -47,9 +47,9 @@ def client_front_end(client):
             case "2":
                 print("\n*** DEPOSIT *** \n")
                 try:
-                    client.send("2".encode())
                     amount = float(input("Amount: "))
                     destination = input("Account (Serial number): ")
+                    client.send("2".encode())
                     info = str(amount) + ";" + destination
                     client.send(info.encode())
                     response = client.recv(1024).decode()
@@ -60,9 +60,9 @@ def client_front_end(client):
             case "3":
                 print("\n*** WITHDRAW ***\n")
                 try:
-                    client.send("3".encode())
                     amount = float(input("Amount: "))
                     account = input("Account (Serial number): ")
+                    client.send("3".encode())
                     info = str(amount) + ";" + account
                     client.send(info.encode())
                     response = client.recv(1024).decode()
@@ -73,10 +73,10 @@ def client_front_end(client):
             case "4":
                 print("\n*** TRANSFER ***\n")
                 try:
-                    client.send("4".encode())
                     amount = float(input("Amount: "))
                     account = input("Account (Serial number): ")
                     destination = input("Destination (Serial number): ")
+                    client.send("4".encode())
                     info = str(amount) + ";" + account + ";" + destination
                     client.send(info.encode())
                     response = client.recv(1024).decode()
@@ -87,10 +87,10 @@ def client_front_end(client):
             case "5":
                 print("\n*** PAYMENT ***\n")
                 try:
-                    client.send("5".encode())
                     amount = float(input("Amount: "))
                     account = input("Account (Serial number): ")
                     destination = input("Destination (Serial number): ")
+                    client.send("5".encode())
                     info = str(amount) + ";" + account + ";" + destination
                     client.send(info.encode())
                     response = client.recv(1024).decode()
